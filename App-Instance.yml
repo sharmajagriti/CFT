@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: '2010-09-09'
-Description: Create a Instance > App-Instance
+Description: Create a Instance > Boston-Instance
 
 Metadata:
   AWS::CloudFormation::Interface:
@@ -15,6 +15,7 @@ Metadata:
         Parameters:
           - VPC
           - Subnet1
+          - Subnet2
       - Label:
           default: "Instance Configuration"
         Parameters:
@@ -30,7 +31,7 @@ Parameters:
     Default: "dev"
   pResourceName:
     Type: String
-    Default: "AppInstance"
+    Default: "Api"
     AllowedPattern: "[A-Za-z0-9]*"
     MaxLength: 12
   pKeyPair:
@@ -48,14 +49,14 @@ Parameters:
     Default: "VPC"
   Subnet1:
     Type: AWS::EC2::Subnet::Id
-    Default: "PrivateSubnet1"
+   # Default: "PrivateSubnet1"
   Subnet2:
     Type: AWS::EC2::Subnet::Id
-    Default: "PrivateSubnet2"
+    #Default: "PrivateSubnet2"
   SGInstance:
-    Type: AWS::EC2::SecurityGroup::Id
-    Default: "AppServerSG"
-  WebServerRole:
+    Type: List<AWS::EC2::SecurityGroup::Id>
+   # Default: "AppServerSG"
+  AppServerRole:
     Type: "String"
     Default: ""
 
@@ -75,7 +76,7 @@ Resources:
   IamInstanceProfile:
     Type: AWS::IAM::InstanceProfile
     Properties:
-      Roles: !Ref WebServerRole
+      Roles: [!Ref AppServerRole]
 
   Instance1:
     Type: AWS::EC2::Instance
@@ -139,7 +140,7 @@ Resources:
         - DeleteOnTermination: true
           AssociatePublicIpAddress: true
           DeviceIndex: "0"
-          SubnetId: !Ref Subnet2
+          SubnetId: !Ref Subnet1
           GroupSet: !Ref SGInstance
       UserData:
         Fn::Base64:
