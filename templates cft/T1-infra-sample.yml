@@ -139,8 +139,8 @@ Resources:
           yum update -y
           yum install python3 -y
       Tags:
-        - Key: StackName
-          Value: !Sub "${AWS::StackName}"
+        - Key: Name
+          Value: "MyInstance"
 
 Outputs:
   InstanceId:
