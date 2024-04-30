@@ -31,6 +31,7 @@ Parameters:
   # Fn::ImportValue: !Sub "${StackExportPrefix}-${VPC}" -> !Ref VPC
   VPC:
     Type: AWS::EC2::VPC::Id
+    Default: "VPC"
     
 
 Resources:
@@ -39,8 +40,8 @@ Resources:
     Properties:
       GroupDescription: "SecurityGroup for BostonSG"
       GroupName: !Sub "${StackExportPrefix}-${pResourceName}-BostonSG"
-      VpcId:
-        Fn::ImportValue: !Sub "${StackExportPrefix}-${VPC}"
+      VpcId: !Ref VPC
+        
       SecurityGroupIngress:
         - Description: "Allow ICMP (Ping) traffic for 0.0.0.0/0"
           IpProtocol: 'icmp'
@@ -64,8 +65,8 @@ Resources:
     Properties:
       GroupDescription: "SecurityGroup for LBPublicSG"
       GroupName: !Sub "${StackExportPrefix}-${pResourceName}-LBPublicSG"
-      VpcId:
-        Fn::ImportValue: !Sub "${StackExportPrefix}-${VPC}"
+      VpcId: !Ref VPC
+        
       SecurityGroupIngress:
         - Description: "Allow ICMP (Ping) traffic for 0.0.0.0/0"
           IpProtocol: 'icmp'
@@ -96,9 +97,8 @@ Resources:
     Properties:
       GroupDescription: "SecurityGroup for WebServerSG"
       GroupName: !Sub "${StackExportPrefix}-${pResourceName}-WebServerSG"
-      VpcId:
-        Fn::ImportValue: !Sub "${StackExportPrefix}-${VPC}"
-      SecurityGroupIngress:
+      VpcId: !Ref VPC
+      SecurityGroupIngress:  
         - Description: "Allow ICMP (Ping) traffic for 0.0.0.0/0"
           IpProtocol: 'icmp'
           FromPort: -1
@@ -124,8 +124,8 @@ Resources:
     Properties:
       GroupDescription: "SecurityGroup for AppServerSG"
       GroupName: !Sub "${StackExportPrefix}-${pResourceName}-AppServerSG"
-      VpcId:
-        Fn::ImportValue: !Sub "${StackExportPrefix}-${VPC}"
+      VpcId: !Ref VPC
+       
       SecurityGroupIngress:
         - Description: "Allow ICMP (Ping) traffic for 0.0.0.0/0"
           IpProtocol: 'icmp'
@@ -154,8 +154,8 @@ Resources:
     Properties:
       GroupDescription: "SecurityGroup for LBPrivateSG"
       GroupName: !Sub "${StackExportPrefix}-${pResourceName}-LBPrivateSG"
-      VpcId:
-        Fn::ImportValue: !Sub "${StackExportPrefix}-${VPC}"
+      VpcId: !Ref VPC
+       
       SecurityGroupIngress:
         - Description: "Allow ICMP (Ping) traffic for 0.0.0.0/0"
           IpProtocol: 'icmp'
@@ -185,8 +185,8 @@ Resources:
     Properties:
       GroupDescription: "SecurityGroup for AppServer1SG"
       GroupName: !Sub "${StackExportPrefix}-${pResourceName}-AppServer1SG"
-      VpcId:
-        Fn::ImportValue: !Sub "${StackExportPrefix}-${VPC}"
+      VpcId: !Ref VPC
+        
       SecurityGroupIngress:
         - Description: "Allow ICMP (Ping) traffic for 0.0.0.0/0"
           IpProtocol: 'icmp'
@@ -217,8 +217,8 @@ Resources:
     Properties:
       GroupDescription: "SecurityGroup for RDatabaseSG"
       GroupName: !Sub "${StackExportPrefix}-${pResourceName}-RDatabaseSG"
-      VpcId:
-        Fn::ImportValue: !Sub "${StackExportPrefix}-${VPC}"
+      VpcId: !Ref VPC
+        
       SecurityGroupIngress:
         - Description: "Allow ICMP (Ping) traffic for 0.0.0.0/0"
           IpProtocol: 'icmp'
